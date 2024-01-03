@@ -12,10 +12,12 @@
 
   <ItemGroup>
     <None Remove=".nojekyll" />
+    <None Remove="docs\.nojekyll" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include=".nojekyll" />
+    <Compile Include="docs\.nojekyll" />
   </ItemGroup>
 
   <ItemGroup>
