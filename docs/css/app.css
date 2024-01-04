@@ -1,43 +1,14 @@
+/*自定义变量区域*/
+:root {
+    --Masa-: 1px;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-h1:focus {
-    outline: none;
-}
-
-a, .btn-link {
-    color: #0071c1;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-.content {
-    padding-top: 1.1rem;
-}
-
-.valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
-}
-
-.invalid {
-    outline: 1px solid red;
-}
-
-.validation-message {
-    color: red;
-}
-
 #blazor-error-ui {
-    background: lightyellow;
+    background: rgb(255, 123, 123);
     bottom: 0;
     box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
     display: none;
@@ -65,6 +36,15 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+code {
+    color: #c02d76;
+}
+
+/*加载界面的CSS样式*/
+.loading-color {
+    color: #4390e6;
+}
+
 .loading-progress {
     position: relative;
     display: block;
@@ -82,7 +62,7 @@ a, .btn-link {
     }
 
         .loading-progress circle:last-child {
-            stroke: #1b6ec2;
+            stroke: #4390e6;
             stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
             transition: stroke-dasharray 0.05s ease-in-out;
         }
@@ -95,9 +75,160 @@ a, .btn-link {
 }
 
     .loading-progress-text:after {
-        content: var(--blazor-load-percentage-text, "Loading");
+        content: var(--blazor-load-percentage-text, "0%");
+        background-color: white;
+        /*--blazor-load-percentage-text*/
     }
 
-code {
-    color: #c02d76;
+
+.picture-background-center-cover {
+    background-position: center;
+    background-size: cover;
+}
+
+/*Background - firework picture*/
+.loading-progress-background-picture {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../resources/pictures/Firm-Back.jpg');
+}
+
+/*Background - Move Color Picture*/
+.loading-progress-background-picture-move {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    right: calc(100% - var(--blazor-load-percentage));
+    overflow: hidden;
+    transition: right ease-in-out 0.3s;
+}
+
+    .loading-progress-background-picture-move::after {
+        position: absolute;
+        content: " ";
+        width: 100%;
+        height: 100%;
+        background-image: url('../resources/pictures/color-back.webp');
+        background-position: center;
+        background-size: cover;
+        left: calc(100% - var(--blazor-load-percentage));
+        transition: left ease-in-out 0.3s;
+    }
+
+
+/* 加载进度条的文档 
+    https://learn.microsoft.com/zh-cn/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0#startup-process-and-configuration
+*/
+.loading-progress-text-pb {
+    position: relative;
+    text-align: center;
+    background-color: white;
+    margin:10px;
+}
+
+
+
+
+
+
+/*PowerBear Web Css Style*/
+.p-picture {
+    background-size: cover;
+    background-position: center;
+}
+
+.ptext-title {
+    margin: 10px 0 0 0;
+    letter-spacing: 1rem;
+    font-family: Roboto,sans-serif;
+    font-weight: 600;
+    font-size: 3rem;
+    transform: rotateX(90);
+    overflow-wrap: break-word;
+}
+
+.ptext-clipped {
+    /* 指定这个特效的background-image */
+    background-size: cover;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+.p-animation-scroll-x {
+    animation-name: dot;
+    animation-duration: 60s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes dot {
+    0% {
+        background-position-x: 0px
+    }
+
+    100% {
+        background-position-x: 100vw
+    }
+}
+
+.pParagraph {
+    margin: 1.2rem 0 1.2rem 0;
+    overflow-wrap: break-word;
+}
+
+.ptext-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.75rem;
+    letter-spacing: 1rem;
+    font-family: Roboto,sans-serif;
+}
+
+.p-default-board-radius {
+    border-radius: 0.4rem !important;
+}
+
+/*固定图片背景不移动*/
+.p-image-attachment-fixed {
+    background-attachment: fixed;
+}
+
+/*居中对齐容器*/
+.p-center-align {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/*背景高亮*/
+.high-light {
+    background-color: #ffff0061;
+}
+
+
+/*
+    扩散样式
+*/
+::view-transition-old(root) {
+    animation: none;
+}
+
+::view-transition-new(root) {
+    mix-blend-mode: normal;
+    animation: clip 0.4s ease-in;
+}
+
+@keyframes clip {
+    from {
+        clip-path: circle(0% at var(--x) var(--y));
+    }
+
+    to {
+        clip-path: circle(100% at var(--x) var(--y));
+    }
 }

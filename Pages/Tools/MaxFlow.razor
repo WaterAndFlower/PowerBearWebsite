@@ -1,0 +1,95 @@
+﻿@page "/tools/MaxFlow"
+<div>
+    <MToolbar Prominent>
+        <MButton Icon Href="/tools"
+                 Class="hidden-xs-only">
+            <MIcon>mdi-arrow-left</MIcon>
+        </MButton>
+
+        <MToolbarTitle>最大流可视化</MToolbarTitle>
+
+        <MSpacer></MSpacer>
+
+        <MButton Icon Href="/tools">
+            <MIcon>mdi-export</MIcon>
+        </MButton>
+    </MToolbar>
+</div>
+<MMain>
+    <MContainer>
+        <div><MBreadcrumbs Items="items"></MBreadcrumbs></div>
+        <p>
+            <MResponsive AspectRatio="2">
+                <div style="width:100%;height:100%;">
+                    <iframe style="width:100%;height:100%;border:none" src="https://636c-cloud1-9gjubf4ia7478290-1312053996.tcb.qcloud.la/WebSiteDotNet/index.html">
+                    </iframe>
+                </div>
+            </MResponsive>
+        </p>
+        <p>
+            <MAlert Border="Borders.Left">
+                <MIcon>mdi-information</MIcon>
+                【鼠标左键】：执行操作和点击，如交互按钮，放置节点；【鼠标右键】拖拽画布；【鼠标滚轮】：用于放大缩小画布；【特别提醒】：当屏幕闪烁，注意左上方的提示。
+            </MAlert>
+        </p>
+        <p>
+            <MRow>
+                @foreach (var item in _list) {
+                    <MCol Cols="12" Sm="4">
+                        <MCard Style="height:100%">
+                            <MCardText Class="body-1 d-flex flex-row align-center" Style="height:100%">
+                                <div class="flex-grow-1">
+                                    @item.Title
+                                </div>
+                                <MButton Icon Elevation="0" Href="@item.Href" Class="align-self-center">
+                                    <MIcon>mdi-arrow-top-right</MIcon>
+                                </MButton>
+                            </MCardText>
+                        </MCard>
+                    </MCol>
+                }
+            </MRow>
+        </p>
+        <p>
+            <MCard Outlined>
+                <MCardTitle>
+                    小程序版本同样很好用！
+                </MCardTitle>
+                <MImage Src="/Resources/IP_MAXFLOW.PNG"></MImage>
+            </MCard>
+        </p>
+    </MContainer>
+</MMain>
+
+@code {
+    protected override Task OnInitializedAsync() {
+        GobalManager.PageValue = 2;
+        return base.OnInitializedAsync();
+    }
+    List<BreadcrumbItem> items = new()
+                                                                       {
+        new BreadcrumbItem() {Text = "Tools", Disabled = false, Href = "/tools"},
+        new BreadcrumbItem() {Text = "最大流可视化", Disabled = true, Href = "/tools/MaxFlow"},
+    };
+    class _data {
+        public string Title = "";
+        public string Href = "";
+    };
+    List<_data> _list = new() {
+        new(){Title="去网页上查看",Href="https://636c-cloud1-9gjubf4ia7478290-1312053996.tcb.qcloud.la/WebSiteDotNet/index.html"},
+        new() {
+            Title="下载Windows版本电脑安装包",
+            Href="https://636c-cloud1-9gjubf4ia7478290-1312053996.tcb.qcloud.la/Models/M02/WindowsX64.zip"
+        },
+        new() {
+            Title="访问微信小程序版本APP",
+            Href=""
+        }
+    };
+}
+
+<style>
+    #iframe {
+        border: none;
+    }
+</style>

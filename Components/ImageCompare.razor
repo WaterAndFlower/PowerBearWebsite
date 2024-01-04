@@ -1,0 +1,54 @@
+﻿@inject IJSRuntime JS
+
+<div id="top-frame" style="@Style;">
+    <div class="conBody" @onmousemove="(e)=>{OnMouseMove(e);}">
+        <div class="innerImg backImg" style="background-image: url(@ImageUrlLeft);">
+        </div>
+        <div class="innerImg backImg MaskImg" style="background-image: url(@ImageUrlRight);">
+        </div>
+        <div class="CopyRight">@CopyRightContent</div>
+    </div>
+
+
+    <MSlider @bind-Value="_slider"
+             ThumbLabel="true"
+             Color="purple"
+             TrackColor="pink" />
+
+    <div>
+        @ChildContent
+    </div>
+
+</div>
+@code {
+    [Parameter]
+    public string ImageUrlLeft { get; set; } = "";
+    [Parameter]
+    public string ImageUrlRight { get; set; } = "";
+    [Parameter]
+    public string Height { get; set; } = "720px";
+    [Parameter]
+    public double AspectRatio { get; set; } = 1.777778;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? CopyRightContent { get; set; }
+    [Parameter] public string? Style { get; set; }
+
+    private double _slider = 45;
+
+    async void OnMouseMove(MouseEventArgs e) {
+        var op = await JS.InvokeAsync<double>("GetScreenWidth");
+        _slider = e.OffsetX / op * 100;
+    }
+}
+
+<style>
+    .MaskImg {
+        clip-path: inset(0 0 0 @_slider%);
+    }
+</style>
+
+<script>
+    function GetScreenWidth() {
+        return document.getElementById("top-frame").offsetWidth;
+    }
+</script>

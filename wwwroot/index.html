@@ -4,21 +4,47 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PowerBearWebsite_Assembly</title>
+    <title>大千小熊 の WEB</title>
     <base href="/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <link href="_content/Masa.Blazor/css/masa-blazor.min.css" rel="stylesheet" />
+
+    <!--<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />-->
+
+    <link href="https://cdn.masastack.com/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css" />
-    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="icon" type="image/png" href="Resources/BearHeader.jpg" />
     <link href="PowerBearWebsite_Assembly.styles.css" rel="stylesheet" />
+
+    <script src="_content/BlazorAnimate/blazorAnimateInterop.js"></script>
+    <script src="_content/BlazorComponent/js/blazor-component.js"></script>
 </head>
 
 <body>
+
+    <!--App Layer-->
     <div id="app">
-        <svg class="loading-progress">
-            <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
-        </svg>
-        <div class="loading-progress-text"></div>
+        <!--Loading Progress Layer,Need Compolished Deleted-->
+        <div class="picture-background-center-cover loading-progress-background-picture">
+            <!--Move Picture-->
+            <div class="picture-background-center-cover loading-progress-background-picture-move">
+            </div>
+
+            <svg class="loading-progress">
+                <circle class="loading-color" r="40%" cx="50%" cy="50%" />
+                <circle class="loading-color" r="40%" cx="50%" cy="50%" />
+            </svg>
+            <div class="loading-progress-text">
+            </div>
+
+            <div class="loading-progress-text-pb loading-color">
+                本网站使用WASM技术进行构建，首次加载较慢。Please wait for the loading end.&nbsp;
+                <div class="m-progress-circular m-progress-circular--visible m-progress-circular--indeterminate" style="height: 20px;width: 20px;">
+                    <svg style="transform: rotate(0deg);" viewBox="22.7027027027027 22.7027027027027 45.4054054054054 45.4054054054054"><circle class="m-progress-circular__overlay" stroke-dashoffset="125.66370614359172px" fill="transparent" cx="45.4054054054054" cy="45.4054054054054" r="20" stroke-width="5.405405405405405" stroke-dasharray="125.664"></circle></svg><!--!-->
+                    <div class="m-progress-circular__info"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="blazor-error-ui">
@@ -26,7 +52,32 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+
+    <script type="text/javascript">
+        //Config Blazor Loading Behavior
+        document.documentElement.style.setProperty("--blazor-load-percentage", `0%`)
+        document.addEventListener("DOMContentLoaded", function () {
+            Blazor.start({
+                configureRuntime: dotnet => {
+                    dotnet.withEnvironmentVariable("CONFIGURE_RUNTIME", "true");
+
+                }
+            }).then(data => {
+
+            });
+        });
+
+        //Switch Theme 触发
+        window.switchTheme = function (dotNetHelper, x, y) {
+            document.documentElement.style.setProperty('--x', x + 'px')
+            document.documentElement.style.setProperty('--y', y + 'px')
+            document.startViewTransition(() => {
+                dotNetHelper.invokeMethodAsync('SwitchTheme');
+            });
+        }
+    </script>
 </body>
 
 </html>

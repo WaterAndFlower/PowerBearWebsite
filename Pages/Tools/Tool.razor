@@ -1,0 +1,143 @@
+﻿@page "/tools"
+@using System.Timers;
+@inject IPopupService PopupService;
+@inject HttpClient HttpClient;
+@inject NavigationManager Nav;
+<MMain>
+    <MContainer>
+        <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
+            <div class="ptext-title"><MIcon Size="46">mdi-tools</MIcon> 工具箱</div>
+        </Animate>
+
+        <p>学习运筹学你所需要的所有工具</p>
+        <p>
+            <MTextField PrependIcon="mdi-text-box" @bind-Value="Ipt" Label="搜索你想要的功能" OnInput="(string e)=>{IptChanged(e);}" Clearable ClearIcon="mdi-close-circle-outline" OnClearClick="(e)=>{IptChanged(Ipt);}"></MTextField>
+             <div style="height:@(_Wait_Time==0?"0px":"3px");transition:all 0.2s">
+                 <MProgressLinear Style="height:100%" Value="@(100 - _Wait_Time)"></MProgressLinear>
+             </div>
+         </p>
+
+         <p>
+             @{
+                int ShowNum = -1;
+            }
+            <MRow AlignContent="AlignContentTypes.Stretch">
+                @for (int it = 0; it < _Render_List.Count; it++) {
+                    var (item, i) = (_Render_List[it], it);
+
+                    if (item.Hidden == true) continue;
+
+                    <MCol Cols="12" Md="6" Lg="4">
+                        @{
+                            ShowNum += 1;
+                        }
+                        <Animate Animation="Animations.ZoomIn" Style="height:100%;" Delay="TimeSpan.FromSeconds(ShowNum*0.2d)">
+
+                            <MCard Elevation="0" Outlined Class="d-flex flex-column" Style="height:100%;">
+                                 <MCardTitle>
+                                     @(new MarkupString(item.Title))
+                                 </MCardTitle>
+                                 <MCardText Class="flex-grow-1">
+                                     @(new MarkupString(item.Body))
+                                 </MCardText>
+                                 <MCardActions>
+                                     @if (item.Href == "null") {
+                                        <MButton Elevation="0" OnClick="PopUpSer">使用</MButton>
+                                    } else {
+                                        <MButton Elevation="0" Href="@item.Href">使用</MButton>
+                                    }
+
+                                </MCardActions>
+                            </MCard>
+                        </Animate>
+                    </MCol>
+                }
+            </MRow>
+        </p>
+        <p>按照《运筹学大纲》进行制作，（C）Copyright：琦毓&小熊-2023</p>
+        <p>其他功能正在更新中</p>
+    </MContainer>
+</MMain>
+
+
+@code {
+    protected Timer Timer { get; set; }
+    protected override Task OnInitializedAsync() {
+        GobalManager.PageValue = 2;
+        _Render_List = _list.TryDeepClone();
+        if (Timer == null) {
+            Timer = new(150);
+            Timer.Elapsed += Timer_Elapsed;
+        }
+        return base.OnInitializedAsync();
+    }
+    class _data {
+        public string Title = "";
+        public string Body = "";
+        public string Href = "null";
+        public bool Hidden = false;
+    };
+    readonly List<_data> _list = new() {
+        new(){Title="线性规划",Body="是研究线性约束条件下线性目标函数的极值问题的数学理论和方法"},
+        new(){Title="运输问题",Body="一类具有特殊结构的线性规划问题，有关于运输问题"},
+        new(){Title="整数规划",Body="是指规划中的变量限制为整数，在线性模型中，变量限制为整数"},
+        new(){Title="最大流可视化",Body="最大流问题(maximum flow problem)，一种组合最优化问题，就是要讨论如何充分利用装置的能力，使得运输的流量最大，以取得最好的效果。",Href="/tools/MaxFlow"}
+    };
+    string Ipt = "";
+    List<_data> _Render_List = new();
+    int _Wait_Time = 0;
+    public void IptChanged(string st) {
+        if (Ipt == "" || Ipt == null) {
+            _Render_List = _list.TryDeepClone();
+            _Wait_Time = 0;
+            return;
+        }
+
+        _Wait_Time = 100;
+        _Render_List = new();
+        StateHasChanged();
+        if (Timer.Enabled == false) Timer.Start();
+    }
+
+    string Div01 = "<span class='high-light'>", Div02 = "</span>";
+
+    private async void Timer_Elapsed(object sender, ElapsedEventArgs e) {
+        await InvokeAsync(() => {
+            if (_Wait_Time > 0) {
+                _Wait_Time -= 51;
+            } else {
+                _Wait_Time = 0;
+                Timer.Stop();
+
+                _Render_List = _list.TryDeepClone();
+
+                foreach (var Item in _Render_List) {
+                    if (Ipt == null) Ipt = "";
+                    var Index01 = Item.Title.IndexOf(Ipt);
+                    var Index02 = Item.Body.IndexOf(Ipt);
+                    Item.Hidden = !(Index01 != -1 || Index02 != -1);
+                    if (Index01 != -1 && Ipt != "") {
+                        Item.Title = Item.Title.Insert(Index01, Div01);
+                        Item.Title = Item.Title.Insert(Index01 + Div01.Length + Ipt.Length, Div02);
+                    }
+                    if (Index02 != -1 && Ipt != "") {
+                        Item.Body = Item.Body.Insert(Index02, Div01);
+                        Item.Body = Item.Body.Insert(Index02 + Div01.Length + Ipt.Length, Div02);
+                    }
+                }
+
+            }
+            StateHasChanged();
+        });
+    }
+
+    async void PopUpSer() {
+        var res = await PopupService.ConfirmAsync(
+             "错误",
+             "这部分内容正在制作中，目前只有“*最大流可视化”上架，也就是最后一个板块。点击OK访问。",
+             AlertTypes.Error);
+        if (res == true) {
+            Nav.NavigateTo("/tools/MaxFlow");
+        }
+    }
+}

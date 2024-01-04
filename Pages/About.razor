@@ -1,0 +1,152 @@
+﻿@page "/about"
+<MMain>
+    <MContainer>
+        <p>
+            <h1>ABOUT ME</h1>
+            <div>有关于我的信息和一些近况（UPDATE：2023/6）</div>
+        </p>
+        <p>
+            你好，我是  @@大千小熊，很高兴到访我的网站。简单的自我介绍，我是一个超级大学渣，成绩不好，并且没有GPA，受到了两次最高学业警告，但是这丝毫不影响我的继续摆烂~。
+        </p>
+        <p>
+            喜欢睡觉，吃汉堡🍔🍔🍔，特别是巨无霸；喜欢数学，但是却不擅长，喜欢算法，但是同样也不擅长，学过Guitar，但是什么也不会，只有一个是我特别擅长的，那就是睡觉，我可以一天睡10H+，真的太牛牛了！。
+        </p>
+        <p>
+            <img width="300" src="Resources/About-2.png" />
+            <div class="text-caption">小熊的照片</div>
+        </p>
+        <MAlert Dense Border="Borders.Left">目前就读学校：丹阳中北学院（民办三类本科）</MAlert>
+         <MDivider />
+         <p>
+             <h2>CONTRACT</h2>
+             <div>这是我的一些社交媒体账号，非常欢迎您的参观，我的一些成果视频，游戏视频也会在这些视频网站上进行投递。</div>
+         </p>
+         <p>
+             <MList Subheader Elevation="0.3"
+                   TwoLine Outlined>
+                <MSubheader Inset>我的社交媒体账号</MSubheader>
+
+                @foreach (var item in _CONTRACT) {
+                    <MListItem>
+                        <MListItemAvatar>
+                            <img src="@item.Icon" />
+                        </MListItemAvatar>
+
+                        <MListItemContent>
+                            <MListItemTitle>@item.Title</MListItemTitle>
+
+                                <MListItemSubtitle>@item.SubTitle</MListItemSubtitle>
+                            </MListItemContent>
+
+                            <MListItemAction>
+                                <MButton Icon Href="@item.Href">
+                                 <MIcon Color="grey lighten-1">mdi-information</MIcon>
+                             </MButton>
+                         </MListItemAction>
+                     </MListItem>
+                }
+            </MList>
+        </p>
+        <p>
+            <MAlert Dense Border="Borders.Left">
+                 <MIcon>mdi-mail</MIcon>
+                 我的电子邮箱：collinmail@126.com
+             </MAlert>
+         </p>
+         <MDivider />
+         <p>
+             <h2>LAWS OF INTERNET</h2>
+             <div>本网站遵循有关国家的法律，进行了完善的域名备案。</div>
+         </p>
+         <MDivider />
+         <p>
+             <h2>REFERENCE</h2>
+             <div>本网站的搭建过程中，使用了一些网络资源和开源组件，按照协议，申明如下。</div>
+         </p>
+         <p>
+             <MList Subheader Elevation="0.3"
+                   TwoLine Outlined>
+                <MSubheader Inset>本项目的 开源组件 或 网络资源参考 引用</MSubheader>
+
+                @foreach (var item in _REFERENCE) {
+                    <MListItem>
+                        <MListItemAvatar>
+                            <MIcon Class="grey lighten-1">
+                                @item.Icon
+                            </MIcon>
+                        </MListItemAvatar>
+
+                        <MListItemContent>
+                            <MListItemTitle>@item.Title</MListItemTitle>
+
+                                <MListItemSubtitle>@item.SubTitle</MListItemSubtitle>
+                            </MListItemContent>
+
+                            <MListItemAction>
+                                <MButton Icon Href="@item.Href">
+                                 <MIcon Color="grey lighten-1">mdi-information</MIcon>
+                             </MButton>
+                         </MListItemAction>
+                     </MListItem>
+                }
+            </MList>
+        </p>
+
+    </MContainer>
+</MMain>
+
+
+@code {
+    class ReInfo {
+        public string Title = ""; public string SubTitle = "";
+        public string Icon = "mdi-xml"; public string Href = "";
+    }
+    ReInfo[] _REFERENCE = new ReInfo[] {
+        new() {
+            Title="Ms Dotnet | License Under MIT",
+            SubTitle="微软Dotnet开源平台.Net 7.0版本，本项目使用"
+        },
+        new() {
+            Title="MASA Blazor | License Under MIT",
+            SubTitle="MASA Blazor前端框架组件库，本项目基于此搭建"
+        },
+        new() {
+            Title="Log4net | License Under ApL2.0",
+            SubTitle="用于输出网页的日志，开源组件库"
+        },
+        new() {
+            Title="ECharts | License Under MIT",
+            SubTitle="一个JS框架下的绘制图像的组件库"
+        }
+    };
+    ReInfo[] _CONTRACT = new ReInfo[] {
+        new() {
+            Title="Bilibili | @大千小熊",
+            SubTitle="Bilibili视频弹幕网，曾经写过的程序会在这里",
+            Href="https://space.bilibili.com/24782963",
+            Icon="https://img2.baidu.com/it/u=2684122930,3194943425&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
+        },
+        new() {
+            Title="抖音TikTok",
+            SubTitle="我的个人抖音账户，一些生活状态会发布在此",
+            Href="https://v.douyin.com/iLHs2Yk/",
+            Icon="https://p4.itc.cn/images01/20210608/b2dd7241fcc04fa2b0f6402034b98a4a.jpeg"
+        },
+        new() {
+            Title="CSDN BLOG",
+            SubTitle="我的在线博客日志，相关东西会发布在这",
+            Href="https://blog.csdn.net/qq_34013247",
+            Icon="https://img2.baidu.com/it/u=3694432627,2848161073&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=300"
+        },
+        new() {
+            Title="GITEE",
+            SubTitle="我的个人仓库，一些小代码会存储在这里，虽然未来会删掉，毕竟写的挺辣眼睛的，正在努力完善码风",
+            Href="https://gitee.com/daqian-xiaoxiong/",
+            Icon="https://www.infocode.com.cn/blog/wp-content/uploads/2021/10/f8fba7a2f3c35d3d7c16892b38ba4785.jpg"
+        }
+    };
+    protected override Task OnInitializedAsync() {
+        GobalManager.PageValue = 3;
+        return base.OnInitializedAsync();
+    }
+}

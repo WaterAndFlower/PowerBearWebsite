@@ -1,16 +1,109 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@inject MasaBlazor MasaBlazor
+@inject IJSRuntime JsRuntime
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+<MApp Style="transition:0.4s">
+    <!--改变Safari浏览器的背景颜色-->
+    <MToolbar Height="0" Absolute></MToolbar>
+     <div class="d-none d-sm-flex">
+         <MToolbar Elevation="0" Color="@color_Height" Flat Style="height:64px;flex-grow:1;width:100%;backdrop-filter:blur(5px);-webkit-backdrop-filter(5px);" @ref="mToolbar" Absolute="@absoulte">
+             <MAvatar Size="36">
+                 <img src="/Resources/BearHeader.jpg" />
+             </MAvatar>
+             <div style="width:10px" />
+             <div>
+                 <MBottomNavigation Dark @bind-Value="@GobalManager.PageValue" Style="box-shadow:none;background-color:#00000000;" Horizontal>
+                    @foreach (var item in GobalManager.GobalPageRoute) {
+
+                        <MButton Style="color:white" href="@item.PageHref">
+                            <span>@item.PageTitle</span>
+                            <MIcon>@item.IconName</MIcon>
+                            </MButton>
+
+                    }
+                </MBottomNavigation>
+            </div>
+            <MSpacer />
+            <div style="height:100%;display: flex;align-items: flex-start;">
+                <MTextField Outlined Label="Search" @bind-Value="_SearchData" PrependInnerIcon="mdi-magnify" Dark Class="d-sm-none d-md-flex" />
+             </div>
+         </MToolbar>
+     </div>
+     @Body
+    <MFooter Style="transition:0.4s" Class="">
+        <MSwitch Value="_isDark" TValue="bool" ValueChanged="IsDarkChanged" Label="@(_isDark ? "　　Dark" : "　　Light")" LeftText="☀️" RightText="🌙" Color="@(_isDark?"purple":"info")" TrackColor="#E5E6EB" OnClick="ClickSwitch" />
+        <div class="text-right font-weight-light flex-grow-1" style="font-size:10px">
+            <div>http://www.powerbear.top</div>
+            <div>域名备案审核信息（中国大陆） |　联系方式请见：<a href="/about" @onclick="()=>{GobalManager.PageValue=2;}">ABOUT</a></div>
         </div>
+    </MFooter>
+    <div style="height:56px" class="hidden-sm-and-up">
+        <MBottomNavigation Fixed @bind-Value="@GobalManager.PageValue" Color="#ca9dff" Grow Shift BackgroundColor="@color" Class="nav-bottom-ui">
+             @foreach (var item in GobalManager.GobalPageRoute) {
+                <MButton href="@item.PageHref">
+                    <span>@item.PageTitle</span>
+                    <MIcon>@item.IconName</MIcon>
+                    </MButton>
+            }
+        </MBottomNavigation>
+    </div>
+</MApp>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+@code {
+    public static MToolbar? mToolbar;
+    string color {
+        get {
+            if (GobalManager.PageValue == 0) return "#92856f4d";
+            if (GobalManager.PageValue == 1) return "#ff728e4d";
+            if (GobalManager.PageValue == 2) return "#c1aeec3b";
+            if (GobalManager.PageValue == 3) return "#95b3ea3b";
+            return "#71a4d29e";
+        }
+    }
+    string color_Height {
+        get {
+            if (GobalManager.PageValue == 0) return "#92856f4d";
+            if (GobalManager.PageValue == 1) return "#904453";
+            if (GobalManager.PageValue == 2) return "#c1aeec";
+            if (GobalManager.PageValue == 3) return "#95b3ea";
+            return "#71a4d29e";
+        }
+    }
+    bool absoulte {
+        get {
+            return GobalManager.GobalPageRoute[GobalManager.PageValue.ToInt32()].ToolBarAbsoulte;
+        }
+    }
+    bool _isDark;
+    private DotNetObjectReference<MainLayout>? objRef; // 对于自己的引用
+
+    protected override Task OnInitializedAsync() {
+        _isDark = MasaBlazor?.Theme?.Dark ?? false;
+        objRef = DotNetObjectReference.Create(this);
+        return base.OnInitializedAsync();
+    }
+
+    private void IsDarkChanged(bool isDark) {
+        _isDark = isDark;
+        //MasaBlazor.ToggleTheme();
+    }
+
+    void ClickSwitch(MouseEventArgs e) {
+        _ = JsRuntime.InvokeVoidAsync("switchTheme", objRef, e.ClientX, e.ClientY);
+    }
+
+    // 由index.html中的js来呼唤而出，这样用于调整前后变化量
+    [JSInvokable]
+    public void SwitchTheme() {
+        MasaBlazor.ToggleTheme();
+    }
+
+    string _SearchData = "";
+}
+
+<style>
+    .nav-bottom-ui {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+</style>

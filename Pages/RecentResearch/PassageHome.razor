@@ -1,0 +1,57 @@
+﻿@page "/passage"
+<MMain Style="background-color:#f8cb7a24">
+    <MContainer>
+        <MRow>
+            <MCol Cols="12" Md="9" Order="2" OrderMd="1">
+                <MSheet Rounded="@("lg")" Style="padding:10px">
+                    <p>
+                        <h1>PASSAGES FOR RESEARCH</h1>
+                        <div>我的一些研究近况和文章</div>
+                    </p>
+                    <p>
+                        <iframe style="width:100%;height:80vh" src="https://blog.csdn.net/qq_34013247?type=blog"></iframe>
+                    </p>
+                </MSheet>
+            </MCol>
+            <MCol Cols="12" Md="3" Order="1" OrderMd="2">
+                <MSheet Rounded="@("lg")" Style="position:relative">
+                    <MCard Elevation="0" Rounded="@("lg")">
+                        <MCardText Class="d-flex flex-row flex-wrap justify-center">
+                            <div class="p-center-align">
+                                <MAvatar Size="100">
+                                    <MImage Src="https://avatars.githubusercontent.com/u/48830451?v=4">
+                                        <PlaceholderContent>
+                                            <MRow Class="fill-height ma-0"
+                                                  Align="@AlignTypes.Center"
+                                                  Justify="@JustifyTypes.Center">
+                                                <MProgressCircular Indeterminate></MProgressCircular>
+                                             </MRow>
+                                        </PlaceholderContent>
+                                    </MImage>
+                                </MAvatar>
+                            </div>
+
+                            <MCardTitle>小月|大千小熊</MCardTitle>
+
+                            <MCardText>
+                                we do not lose time,only we obtain our time that we should need
+                            </MCardText>
+                            <MCardText>
+                                在CSDN上获得更好的阅读体验
+                                <MButton Text Href="https://blog.csdn.net/qq_34013247?type=blog">Learn More</MButton>
+                             </MCardText>
+                         </MCardText>
+                     </MCard>
+                 </MSheet>
+             </MCol>
+         </MRow>
+
+     </MContainer>
+ </MMain>
+
+ @code {
+    protected override Task OnInitializedAsync() {
+        GobalManager.PageValue = 1;
+        return base.OnInitializedAsync();
+    }
+}

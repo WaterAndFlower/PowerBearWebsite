@@ -1,0 +1,309 @@
+﻿@page "/"
+@using PowerBearWebsite_Assembly.Components;
+<MMain Class="gray">
+    <div>
+        <ImageCompare ImageUrlLeft="Resources/BACK_WITH_COLOR.png" ImageUrlRight="Resources/BACK.png" Style="position:relative">
+            <CopyRightContent>
+                <div class="text-right">
+                    <div class="text-body2" style="font-size: 10px;color:gray">CopyRight(C)</div>
+                    <div class="font-weight-thin" style="font-size: 7px;color: #828282;">
+                        零LULU 一位虚拟主播
+                    </div>
+                </div>
+            </CopyRightContent>
+            <ChildContent>
+                <div class="d-flex justify-center" style="position:absolute;right:0;bottom:0">
+                    <div>
+                        <p class="font-weight-light text-center text-caption">（左）渲染器原理，（右）渲染器渲染图，此图为自己编写的染器渲染输出结果</p>
+                    </div>
+                </div>
+            </ChildContent>
+        </ImageCompare>
+    </div>
+
+    <MContainer>
+        <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
+            <p class="center" style="text-align:center;font-family:KaiTi;font-size:4rem;letter-spacing:1rem">大象无形</p>
+        </Animate>
+        <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)" Delay="TimeSpan.FromSeconds(0.2)">
+            <p class="text-center font-weight-light">
+                大方无隅；大器免成；大音希声；大象无形。
+                <MButton Class="ma-2" Text Icon Href="https://so.gushiwen.cn/mingju/juv_19ef511cdb70.aspx">
+                     <MIcon>mdi-link</MIcon>
+                 </MButton>
+             </p>
+         </Animate>
+         <MDivider />
+         <div>
+             <div class="ptext-title ptext-clipped IMG_ABILITY p-animation-scroll-x">ABILITY</div>
+             <div class="ptext-subtitle ">
+                 我的能力
+             </div>
+         </div>
+         <div class="pParagraph">
+             <MRow Justify="JustifyTypes.SpaceBetween">
+                 @{
+                    int _total = 0;
+                }
+                @foreach (var item in _Ability) {
+                    <MCol Cols="12" Md="4">
+                        @{
+                            _total += 1;
+                        }
+                        <Animate Animation="Animations.ZoomIn" style="height:100%" Delay="TimeSpan.FromSeconds(_total*0.2)">
+                            <MCard Class="pa-1 p-default-board-radius" Outlined Style="height:100%">
+                                 <MListItem ThreeLine>
+                                 <MListItemContent>
+                                     <div class="text-overline mb-4">
+                                         @item.OverLine
+                                        </div>
+                                        <MListItemTitle Class="text-h5 mb-1">
+                                            @item.Title
+                                        </MListItemTitle>
+                                        <MListItemSubtitle>
+                                            @item.SubTitle
+                                        </MListItemSubtitle>
+
+
+                                        <MDivider></MDivider>
+                                        <div class="text-body pParagraph">
+                                            @item.Body
+                                        </div>
+
+                                    </MListItemContent>
+                                    <MListItemAvatar Tile Size=34 Style="">
+                                         <MIcon Size="34">@item.AvatarName</MIcon>
+                                        </MListItemAvatar>
+                                    </MListItem>
+                                </MCard>
+                            </Animate>
+                        </MCol>
+                }
+            </MRow>
+        </div>
+        <div class="pParagraph">
+            <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
+                <MList Outlined Class="p-default-board-radius">
+                     @foreach (var item in _Ability) {
+                        <MListItem>
+                            <MListItemAvatar>
+                                <MIcon Size="34">@item.AvatarName</MIcon>
+                                </MListItemAvatar>
+                                <MListItemContent>
+                                    <MListItemTitle Class="font-weight-bold">@item.Title</MListItemTitle>
+                                    <MListItemContent Class="text-body2">
+                                        @item.Details
+                                </MListItemContent>
+                            </MListItemContent>
+                        </MListItem>
+                    }
+                </MList>
+            </Animate>
+        </div>
+    </MContainer>
+</MMain>
+
+<div class="p-image-attachment-fixed IMG_ELEP p-picture" style="height:300px;width:100vw;">
+</div>
+
+<MMain>
+    <MContainer>
+        <div class="ptext-title ptext-clipped IMG_GRESS p-animation-scroll-x">INTEREST</div>
+        <div class="ptext-subtitle">
+            我喜欢的事情，主要的研究方向
+        </div>
+        <div class="pParagraph">
+            <MRow Justify="JustifyTypes.SpaceBetween">
+                <MCol Cols="12" Md="6">
+                    <MCard Class="p-default-board-radius" Outlined Style="height:100%">
+                        <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
+                            <PbImage Height="@("200px")" Width="@("100%")" Src="Resources/Phong-Model.png">
+                            </PbImage>
+                            <MCardTitle>计算机图形学</MCardTitle>
+                            <MCardText>它是一种研究从计算机内存到计算机屏幕的一种过程，而我所主要研究的是它转变过程中所产生的算法。</MCardText>
+                        </Animate>
+                    </MCard>
+                </MCol>
+                <MCol Cols="12" Md="6">
+                    <MCard Class="p-default-board-radius" Outlined Style="height:100%">
+                         <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
+                             <PbImage Height="@("200px")" Width="@("100%")" Src="https://pic1.zhimg.com/80/v2-77f563913e5aba61bfb0126bb294659c_1440w.webp">
+                             </PbImage>
+                             <MCardTitle>数学</MCardTitle>
+                             <MCardText>主要研究的是和算法有关的数学，基础的数论，线性代数和微积分。</MCardText>
+                         </Animate>
+                     </MCard>
+                 </MCol>
+             </MRow>
+         </div>
+
+         <div class="ptext-title ptext-clipped IMG_ABILITY p-animation-scroll-x">
+             ACHIEVEMENT
+
+         </div>
+
+         <div class="ptext-subtitle">
+             我的成就
+         </div>
+
+         <div class="pParagraph">
+             <p>🏆编写过一款游戏：杜若花开。（本科二年级）<a href="https://gitee.com/daqian-xiaoxiong/du-ruo-flowers---unity">Gitee-《杜若花开》</a></p>
+             <div style="display:flex;flex-wrap:wrap">
+                 <PbImage Width="@("400px")" Height="@("200px")" Src="Resources/IMG2.png"></PbImage>
+                 <PbImage Width="@("400px")" Height="@("200px")" Src="Resources/IMG3.png"></PbImage>
+             </div>
+             <p>🏆编写过一个油猴脚本，用于校园网的登录，并且被同学使用。（本科二年级）</p>
+
+             <p>🏆B站上的视频，比学校官方的宣传视频的播放量还要高。（本科三年级）</p>
+
+             <p>🏆运筹学可视化算法软件（最大流问题）（本科三年级）<br /><a href="/tools/MaxFlow">点击这里去本网站体验一下</a></p>
+
+
+             <p>
+                 🏆一个光线追踪软件渲染器（本科三年级）
+                 <br />
+
+                 使用C++和C#语言编写，支持SkyBox HDR，材质系统，可以编辑物体位置，支持渲染动画。实现了迭代式光线追踪，可以模拟两种物体表面：（1）漫反射（2）金属反射。自己编写了一个Obj读入器，读入Obj格式文件。对一个物体对应多个材质文件提供了支持。
+
+                 <div style="display:flex;flex-wrap:wrap">
+
+                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER01.png">
+                         <PlaceholderContent>
+                             <MRow Class="fill-height ma-0"
+                                   Align="@AlignTypes.Center"
+                                   Justify="@JustifyTypes.Center">
+                                 <MProgressCircular Indeterminate></MProgressCircular>
+                             </MRow>
+                         </PlaceholderContent>
+                     </MImage>
+                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER02.png">
+                         <PlaceholderContent>
+                             <MRow Class="fill-height ma-0"
+                                   Align="@AlignTypes.Center"
+                                   Justify="@JustifyTypes.Center">
+                                 <MProgressCircular Indeterminate></MProgressCircular>
+                             </MRow>
+                         </PlaceholderContent>
+                     </MImage>
+                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER03.png">
+                         <PlaceholderContent>
+                             <MRow Class="fill-height ma-0"
+                                   Align="@AlignTypes.Center"
+                                   Justify="@JustifyTypes.Center">
+                                 <MProgressCircular Indeterminate></MProgressCircular>
+                             </MRow>
+                         </PlaceholderContent>
+                     </MImage>
+                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER04.png">
+                         
+                         <PlaceholderContent>
+                             <MRow Class="fill-height ma-0"
+                                   Align="@AlignTypes.Center"
+                                   Justify="@JustifyTypes.Center">
+                                 <MProgressCircular Indeterminate></MProgressCircular>
+                             </MRow>
+                             <img src="/Resources/PapersPictures/PAPER04.png" />
+                         </PlaceholderContent>
+                     </MImage>
+                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER05.png">
+                         <PlaceholderContent>
+                             <MRow Class="fill-height ma-0"
+                                   Align="@AlignTypes.Center"
+                                   Justify="@JustifyTypes.Center">
+                                 <MProgressCircular Indeterminate></MProgressCircular>
+                             </MRow>
+                         </PlaceholderContent>
+                     </MImage>
+                 </div>
+             </p>
+
+         </div>
+     </MContainer>
+ </MMain>
+
+
+ @code {
+    class CardData {
+        public string Title = "";
+        public string OverLine = "";
+        public string SubTitle = "";
+        public RenderFragment Body =@<div></div>;
+        public string AvatarName = "";
+        public string Details = "";
+    };
+
+    CardData[] _Ability = new CardData[] {
+        new() {
+            AvatarName="mdi-xml",OverLine = "我的能力",Title="计算机编程",SubTitle="The Ability Of Computer",
+            Body=
+    @<div>
+        <p>掌握C/C++和C#，基本Java、Python，Web开发</p>
+    </div>,Details="目前我已经掌握了基本的C++语言编写，正在学习侯杰老师的STL，同时已经使用C#编写了多个软件，会Blazor编写网页，使用EFCORE做数据库连接，同时会使用WPF编写客户端软件。"
+        },new() {
+           AvatarName="mdi-calculator-variant", OverLine = "我的能力",Title="算法",SubTitle="The Ability Of Algorithm",
+            Body=
+    @<div>
+        <p>小熊同学是一个算法爱好者</p>
+    </div>,Details="从高中开始迷恋上算法，并且参加了一些计算机奥赛的比赛，但是因为高考自主招生政策转变，所以其实对我而言并没有什么爱好，抱着功利的心来，但是却最后上瘾了算法，毕竟只是爱好而已，无所谓了。"
+        },new() {
+            AvatarName="mdi-palette",OverLine = "我的能力",Title="美术",SubTitle="The Ability Of Art",
+            Body=
+    @<div>
+        <p>有一定的美术基础，会PhotoShop、AdobePrime</p>
+    </div>
+    ,Details="自学过Blender建模软件，从高中时代开始当UP主所以会一点PS和PR剪辑。\n好的设计带来好看的前端设计，和计算机图形学的审美水平，所以美术事实上也算爱好之一。您所看到的这个网页正是小熊同学所设计的。"
+        }
+    };
+    protected override Task OnInitializedAsync() {
+        GobalManager.PageValue = 0;
+        return base.OnInitializedAsync();
+    }
+
+
+}
+
+<style>
+    .IMG_ABILITY {
+        background-image: url("https://img0.baidu.com/it/u=845019517,474903372&fm=253&fmt=auto&app=120&f=JPEG?w=1200&h=675");
+    }
+
+    .IMG_ELEP {
+        background-image: url('Resources/ANIMATION_BACK.webp');
+    }
+
+    .IMG_GRESS {
+        background-image: url("https://img1.baidu.com/it/u=31023219,1270603724&fm=253&fmt=auto&app=138&f=JPEG?w=752&h=500");
+    }
+
+    .SCROLL_BACK {
+        position: sticky;
+        height: 300px;
+        width: 100vw;
+        /* background-image: linear-gradient(45deg, #ff0000, #bbff2c);*/
+        top: 0px;
+        background-image: url("https://img1.baidu.com/it/u=2133641267,1430138153&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500");
+        background-size: cover;
+        background-position: center;
+    }
+
+    .SCROLL_MASK {
+        min-height: 100vh;
+        width: 100vw;
+        background-color: aquamarine;
+        z-index: 100000;
+        position: relative;
+    }
+
+    /*CSS的兼容性方案，ios浏览器生效*/
+    .p-image-attachment-fixed::before {
+        content: '';
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-size: cover;
+        background-image: url('Resources/ANIMATION_BACK.JPG');
+    }
+</style>
