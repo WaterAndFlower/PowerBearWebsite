@@ -1,4 +1,4 @@
-﻿<div style="width:@Width; height:@Height; @Style">
+﻿<div style="width:@Width; height:@Height; @Style;">
     <div class="sub-picture" style="background-image:url(@Src)"></div>
     @ChildContent
 </div>
@@ -6,12 +6,29 @@
 @code {
     [Parameter]
     public StringNumber Width { get; set; } = "300px";
+
+    [Parameter]
+    public StringNumber MinWidth { get; set; } = "300px";
+
+    [Parameter]
+    public StringNumber MaxWidth { get; set; } = "300px";
+
     [Parameter]
     public StringNumber Height { get; set; } = "200px";
+
+    [Parameter]
+    public StringNumber MinHeight { get; set; } = "720px";
+
+    [Parameter]
+    public StringNumber MaxHeight { get; set; } = "720px";
+
+
     [Parameter]
     public String Src { get; set; } = "";
+
     [Parameter]
     public String Style { get; set; } = "";
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 }
@@ -20,7 +37,7 @@
     .sub-picture {
         width: 100%;
         height: 100%;
-        background-size: cover;
+        background-size: contain;
         background-position: center;
     }
 </style>

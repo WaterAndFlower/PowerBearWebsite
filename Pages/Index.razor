@@ -116,16 +116,16 @@
             <MRow Justify="JustifyTypes.SpaceBetween">
                 <MCol Cols="12" Md="6">
                     <MCard Class="p-default-board-radius" Outlined Style="height:100%">
-                        <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
-                            <PbImage Height="@("200px")" Width="@("100%")" Src="Resources/Phong-Model.png">
-                            </PbImage>
-                            <MCardTitle>计算机图形学</MCardTitle>
-                            <MCardText>它是一种研究从计算机内存到计算机屏幕的一种过程，而我所主要研究的是它转变过程中所产生的算法。</MCardText>
-                        </Animate>
-                    </MCard>
-                </MCol>
-                <MCol Cols="12" Md="6">
-                    <MCard Class="p-default-board-radius" Outlined Style="height:100%">
+                         <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
+                             <PbImage Height="@("200px")" Width="@("100%")" Src="Resources/Phong-Model.png">
+                             </PbImage>
+                             <MCardTitle>计算机图形学</MCardTitle>
+                             <MCardText>它是一种研究从计算机内存到计算机屏幕的一种过程，而我所主要研究的是它转变过程中所产生的算法。</MCardText>
+                         </Animate>
+                     </MCard>
+                 </MCol>
+                 <MCol Cols="12" Md="6">
+                     <MCard Class="p-default-board-radius" Outlined Style="height:100%">
                          <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
                              <PbImage Height="@("200px")" Width="@("100%")" Src="https://pic1.zhimg.com/80/v2-77f563913e5aba61bfb0126bb294659c_1440w.webp">
                              </PbImage>
@@ -149,8 +149,8 @@
          <div class="pParagraph">
              <p>🏆编写过一款游戏：杜若花开。（本科二年级）<a href="https://gitee.com/daqian-xiaoxiong/du-ruo-flowers---unity">Gitee-《杜若花开》</a></p>
              <div style="display:flex;flex-wrap:wrap">
-                 <PbImage Width="@("400px")" Height="@("200px")" Src="Resources/IMG2.png"></PbImage>
-                 <PbImage Width="@("400px")" Height="@("200px")" Src="Resources/IMG3.png"></PbImage>
+                 <PbImage Width="@("400px")" Height="@("300px")" Src="Resources/IMG2.png" Style="min-width:400px;flex: 1 0 auto;"></PbImage>
+                 <PbImage Width="@("400px")" Height="@("300px")" Src="Resources/IMG3.png" Style="min-width:400px;flex: 1 0 auto;"></PbImage>
              </div>
              <p>🏆编写过一个油猴脚本，用于校园网的登录，并且被同学使用。（本科二年级）</p>
 
@@ -164,65 +164,23 @@
                  <br />
 
                  使用C++和C#语言编写，支持SkyBox HDR，材质系统，可以编辑物体位置，支持渲染动画。实现了迭代式光线追踪，可以模拟两种物体表面：（1）漫反射（2）金属反射。自己编写了一个Obj读入器，读入Obj格式文件。对一个物体对应多个材质文件提供了支持。
+                 @{
+                    var _list = new List<string>() { "/Resources/PapersPictures/PAPER01.png", "/Resources/PapersPictures/PAPER02.png", "/Resources/PapersPictures/PAPER03.png", "/Resources/PapersPictures/PAPER04.png", "/Resources/PapersPictures/PAPER05.png" };
+                }
+                <div style="display:flex;flex-wrap:wrap">
+                    @foreach (var item in _list) {
+                        <PbImage Src=@item Style=" min-width:350px;max-width:700px;min-height:300px;flex: 1 0 auto;">
+                        </PbImage>
+                    }
+                </div>
+            </p>
 
-                 <div style="display:flex;flex-wrap:wrap">
-
-                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER01.png">
-                         <PlaceholderContent>
-                             <MRow Class="fill-height ma-0"
-                                   Align="@AlignTypes.Center"
-                                   Justify="@JustifyTypes.Center">
-                                 <MProgressCircular Indeterminate></MProgressCircular>
-                             </MRow>
-                         </PlaceholderContent>
-                     </MImage>
-                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER02.png">
-                         <PlaceholderContent>
-                             <MRow Class="fill-height ma-0"
-                                   Align="@AlignTypes.Center"
-                                   Justify="@JustifyTypes.Center">
-                                 <MProgressCircular Indeterminate></MProgressCircular>
-                             </MRow>
-                         </PlaceholderContent>
-                     </MImage>
-                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER03.png">
-                         <PlaceholderContent>
-                             <MRow Class="fill-height ma-0"
-                                   Align="@AlignTypes.Center"
-                                   Justify="@JustifyTypes.Center">
-                                 <MProgressCircular Indeterminate></MProgressCircular>
-                             </MRow>
-                         </PlaceholderContent>
-                     </MImage>
-                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER04.png">
-                         
-                         <PlaceholderContent>
-                             <MRow Class="fill-height ma-0"
-                                   Align="@AlignTypes.Center"
-                                   Justify="@JustifyTypes.Center">
-                                 <MProgressCircular Indeterminate></MProgressCircular>
-                             </MRow>
-                             <img src="/Resources/PapersPictures/PAPER04.png" />
-                         </PlaceholderContent>
-                     </MImage>
-                     <MImage MinWidth="300" MaxWidth="700" Src="/Resources/PapersPictures/PAPER05.png">
-                         <PlaceholderContent>
-                             <MRow Class="fill-height ma-0"
-                                   Align="@AlignTypes.Center"
-                                   Justify="@JustifyTypes.Center">
-                                 <MProgressCircular Indeterminate></MProgressCircular>
-                             </MRow>
-                         </PlaceholderContent>
-                     </MImage>
-                 </div>
-             </p>
-
-         </div>
-     </MContainer>
- </MMain>
+        </div>
+    </MContainer>
+</MMain>
 
 
- @code {
+@code {
     class CardData {
         public string Title = "";
         public string OverLine = "";
