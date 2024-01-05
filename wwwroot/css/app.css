@@ -91,7 +91,7 @@ code {
     position: absolute;
     width: 100vw;
     height: 100vh;
-    background-image: url('../resources/pictures/Firm-Back.jpg');
+    background-image: url('../Resources/Pictures/Firm-Back.jpg');
 }
 
 /*Background - Move Color Picture*/
@@ -109,7 +109,7 @@ code {
         content: " ";
         width: 100%;
         height: 100%;
-        background-image: url('../resources/pictures/color-back.webp');
+        background-image: url('../Resources/Pictures/color-back.webp');
         background-position: center;
         background-size: cover;
         left: calc(100% - var(--blazor-load-percentage));
